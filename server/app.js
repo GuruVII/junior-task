@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req,res,next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
   res.locals = {
     ...res.locals,
     tempData: JSON.parse(fs.readFileSync(path.resolve('data', "data.json"), "utf8"))
@@ -34,7 +35,6 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log('err', err)
   console.log('res', res)
   // set locals, only providing error in development
   res.locals.message = err.message;

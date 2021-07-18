@@ -9,35 +9,12 @@ router.get('/list', function(req, res, next) {
   try {
     const {tempData} = res.locals;
     const parsedData = sort === -1 ? tempData.reverse() : tempData;
-
-    let data = {
+    res.send({
       data: parsedData.slice(page*limit, page*limit+limit),
       count: parsedData.length
-    }
-    res.send(data)
+    })
   } catch (err) {
     next(err)
   } 
 });
-
-router.get('/post', function(req, res, next) {
-  console.log('req', req)
-  const postId = Number(req?.query?.id)
-  let data
-  try {
-    if (postId) {
-      const {tempData} = res.locals;
-      data = tempData.find((item) => item.id === postId)
-      res.send(data)
-    } else {
-      throw 'Error 404: missing id'
-    }
-  } catch (err) {
-    next({
-      message: err,
-      status: 404
-    })
-  }
-});
-
 module.exports = router;

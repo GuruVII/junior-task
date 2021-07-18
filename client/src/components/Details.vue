@@ -1,35 +1,43 @@
 <template>
-  <div class="item">
-    <div>
-      User: {{userId}}
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-header">
+            <slot name="header"> {{ title }} </slot>
+          </div>
+
+          <div class="modal-body">
+            <slot name="body"> {{ body }}</slot>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              User: {{ userId }}
+              <button class="modal-default-button" @click="$emit('close')">
+                Close
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      Title {{title}}
-    </div>
-    <div>
-      {{body}}
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import getData from "@/mixins/getData";
 export default {
-  name: "List",
+  name: "Details",
   data: function () {
     return {
       data: {},
       count: 0,
     };
   },
-  mixins: [getData],
-  async mounted() {
-    const {data, count} = await this.getData()
-    console.log(data)
-
-    this.data = data;
-    this.count = count;
-    console.log(this.data)
+  props: {
+    title: String,
+    body: String,
+    userId: String,
   },
 };
 </script>

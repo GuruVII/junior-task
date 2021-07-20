@@ -2,8 +2,8 @@
   <div class="container">
     <table class="list">
       <tr>
-        <th>Title</th>
         <th>User id</th>
+        <th>Title</th>
       </tr>
       <tr v-for="item in data" :key="item.id" @click="openModal(item)">
         <td>
@@ -52,7 +52,7 @@
         </select>
       </div>
     </div>
-    <Details
+    <DetailsDialog
       v-if="showDetails"
       @close="showDetails = false"
       v-bind="selectedData"
@@ -62,7 +62,7 @@
 
 <script>
 import getData from "@/mixins/getData";
-import Details from "@/components/List.vue";
+import DetailsDialog from "@/components/DetailsDialog.vue";
 
 export default {
   name: "List",
@@ -78,7 +78,7 @@ export default {
       selectedData: {
         body: "",
         title: "",
-        userId: "",
+        userId: ""
       },
     };
   },
@@ -120,7 +120,7 @@ export default {
     },
   },
   mixins: [getData],
-  components: { Details },
+  components: { DetailsDialog },
   async mounted() {
     await this.getDataAndSetPagination();
   },
@@ -137,10 +137,20 @@ table {
       font-size: 0.8rem;
       font-weight: 600;
       text-align: left;
+      padding: 0.5rem 0.75rem;
+      &:first-child {
+        width: 4rem;
+      }
     }
     td {
       border-top: 1px rgba(0, 0, 0, 0.12) solid;
       padding: 0.5rem 0.75rem;
+    }
+    &:not(:first-child) {
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(80, 180, 199, 0.4);
+      }
     }
   }
 }

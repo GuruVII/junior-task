@@ -32,7 +32,7 @@
         </select>
       </div>
       <div>
-        {{ page * pageLimit + 1 }} - {{ page * pageLimit + pageLimit }} out of
+        {{ page * pageLimit + 1 }} - {{ page * pageLimit + Number(pageLimit) }} out of
         {{ count }}
       </div>
       <div>
@@ -129,8 +129,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.container {
+  width: 100%;
+}
 table {
-  width: 50rem;
+  width: 100%;
   border-spacing: 0;
   tr {
     th {
@@ -143,6 +146,7 @@ table {
       }
     }
     td {
+      height: 3rem;
       border-top: 1px rgba(0, 0, 0, 0.12) solid;
       padding: 0.5rem 0.75rem;
     }

@@ -49,13 +49,15 @@ export default {
   z-index: 10;
   display: flex;
   justify-content: center;
-  align-items: top;
+  align-items: center;
   width: 100%;
   height: 100%;
   .modal-container {
-    margin-top: 20rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
     height: 20%;
-    width: 30%;
+    width: 25%;
     background-color: white;
     border-radius: 4px;
     box-sizing: border-box;

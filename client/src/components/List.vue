@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <table class="list">
+    <div v-if="!listData || listData.length === 0" class="no-data">
+      <h4>No Data</h4>
+    </div>
+    <table class="list" v-if="data || listData.length > 0">
       <tr>
         <th>User id</th>
         <th>Title</th>
@@ -16,8 +19,12 @@
     </table>
     <div class="pagination">
       <div>
-        <label>Stran:</label>
-        <select v-model="page" @change="getDataAndSetPagination()">
+        <label>Page:</label>
+        <select
+          v-model="page"
+          @change="getDataAndSetPagination()"
+          :disabled="!listData || listData.length === 0"
+        >
           <option v-for="page in pagesArray" v-bind:value="page" :key="page">
             {{ page + 1 }}
           </option>
@@ -25,28 +32,46 @@
       </div>
       <div>
         <label>Limit:</label>
-        <select v-model="pageLimit" @change="changePageLimit()">
+        <select
+          v-model="pageLimit"
+          @change="changePageLimit()"
+          :disabled="!listData || listData.length === 0"
+        >
           <option>10</option>
           <option>20</option>
           <option>50</option>
         </select>
       </div>
       <div>
-        {{ page * pageLimit + 1 }} - {{ page * pageLimit + Number(pageLimit) }} out of
+        {{ page * pageLimit + 1 }} -
+        {{ page * pageLimit + Number(pageLimit) }} out of
         {{ count }}
       </div>
       <div>
-        <button @click="changePage(false)" :disabled="page === 0">⇽</button>
+        <button
+          @click="changePage(false)"
+          :disabled="page === 0 || !listData || listData.length === 0"
+        >
+          ⇽
+        </button>
         <button
           @click="changePage(true)"
-          :disabled="page === this.pagesArray.slice(-1)[0]"
+          :disabled="
+            page === this.pagesArray.slice(-1)[0] ||
+            !listData ||
+            listData.length === 0
+          "
         >
           ⇾
         </button>
       </div>
       <div>
         <label>Sort:</label>
-        <select v-model="sort" @change="changePageLimit()">
+        <select
+          v-model="sort"
+          @change="changePageLimit()"
+          :disabled="!listData || listData.length === 0"
+        >
           <option value="1">ASC</option>
           <option value="-1">DESC</option>
         </select>
@@ -68,7 +93,7 @@ export default {
   name: "List",
   data: function () {
     return {
-      data: {},
+      listData: [],
       count: 0,
       page: 0,
       pageLimit: 10,
@@ -78,7 +103,7 @@ export default {
       selectedData: {
         body: "",
         title: "",
-        userId: ""
+        userId: "",
       },
     };
   },
@@ -97,7 +122,8 @@ export default {
         this.pageLimit,
         this.sort
       );
-      this.data = data;
+      console.log(data);
+      this.listData = data;
       this.count = count;
       const maxPages = Math.ceil(count / this.pageLimit);
       this.pagesArray = [];

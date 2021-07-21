@@ -6,8 +6,8 @@
 
 <style lang="scss">
 body {
-  background-color: #efefef;
   font-size: 16px;
+  background-color: #efefef;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,9 +25,10 @@ body {
   align-items: center;
   color: #2c3e50;
   box-sizing: border-box;
-  box-shadow:rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
   @media (max-width: 1127px) {
-    margin: 20px
-}
+    margin: 20px;
+  }
 }
 </style>

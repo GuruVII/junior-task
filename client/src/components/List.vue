@@ -122,7 +122,6 @@ export default {
         this.pageLimit,
         this.sort
       );
-      console.log(data);
       this.listData = data;
       this.count = count;
       const maxPages = Math.ceil(count / this.pageLimit);
@@ -136,7 +135,6 @@ export default {
       await this.getDataAndSetPagination();
     },
     changePage: async function (forward) {
-      console.log(this.pagesArray.slice(-1)[0]);
       if (forward && this.page < this.pagesArray.slice(-1)[0]) {
         this.page = this.page + 1;
       } else if (this.page > 0) {
